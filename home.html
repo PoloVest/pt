@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polo Vest — Moda | Fitness | Família</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --text: #14181f;
+      --muted: #5c6675;
+      --primary: #0f3d5e;
+      --primary-hover: #092940;
+      --danger: #b91c1c;
+      --success: #15803d;
+      --border: #e2e6ec;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 68px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      color: var(--primary);
+    }
+
+    .brand-tag {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      background: #f0f3f7;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: var(--danger);
+      border-color: #fecaca;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #fecaca;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, var(--primary), #1d5b88);
+      color: #fff;
+      padding: 36px 0;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 1.9rem;
+      margin-bottom: 6px;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 620px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .search-input {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      min-width: 240px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+      gap: 18px;
+      margin-bottom: 48px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-media {
+      height: 190px;
+      background: #eef2f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-size: 3rem;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .badge {
+      align-self: flex-start;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #e6eff7;
+      color: var(--primary);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .price {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-admin-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .admin-panel {
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 28px;
+      display: none;
+    }
+
+    .admin-panel.visible {
+      display: block;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .field input, .field select, .field textarea {
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 50;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal h2 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .modal p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .divider {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 14px 0;
+    }
+
+    .status-msg {
+      font-size: 0.88rem;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .status-msg.error {
+      display: block;
+      background: #fef2f2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .status-msg.success {
+      display: block;
+      background: #f0fdf4;
+      color: var(--success);
+      border: 1px solid #bbf7d0;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <span class="brand-name">POLO VEST</span>
+        <span class="brand-tag">Moda • Fitness • Família</span>
+      </div>
+      <div class="nav-actions">
+        <span id="authStatusText" style="font-size: 0.85rem; color: var(--muted);"></span>
+        <button id="openLoginBtn" class="btn btn-outline" type="button">Área ADM</button>
+        <button id="logoutBtn" class="btn btn-outline" type="button" style="display: none;">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Estilo para todos os momentos</h1>
+      <p>Peças selecionadas para o dia a dia, treinos e toda a família.</p>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="adminPanel" class="admin-panel" aria-label="Painel Administrativo">
+      <div class="admin-header">
+        <div>
+          <h2 id="formTitle">Adicionar novo produto</h2>
+          <p style="font-size: 0.85rem; color: var(--muted);">Sessão autenticada • Coleção <code>produtos</code></p>
+        </div>
+        <button id="cancelEditBtn" class="btn btn-outline" type="button" style="display: none;">Cancelar edição</button>
+      </div>
+
+      <form id="productForm">
+        <input type="hidden" id="editingId" />
+        <div class="form-grid">
+          <div class="field">
+            <label for="prodNome">Nome da peça *</label>
+            <input id="prodNome" type="text" placeholder="Ex.: Camisa Polo Piquet" required />
+          </div>
+          <div class="field">
+            <label for="prodCategoria">Categoria *</label>
+            <select id="prodCategoria" required>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Infantil">Infantil</option>
+              <option value="Fitness">Fitness</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="prodPreco">Preço (R$) *</label>
+            <input id="prodPreco" type="number" step="0.01" min="0" placeholder="89.90" required />
+          </div>
+          <div class="field">
+            <label for="prodTamanho">Tamanhos</label>
+            <input id="prodTamanho" type="text" placeholder="P, M, G, GG" />
+          </div>
+          <div class="field">
+            <label for="prodImagem">URL da imagem (opcional)</label>
+            <input id="prodImagem" type="url" placeholder="https://..." />
+          </div>
+        </div>
+        <div class="field" style="margin-bottom: 14px;">
+          <label for="prodDescricao">Descrição</label>
+          <textarea id="prodDescricao" rows="2" placeholder="Detalhes do tecido, caimento ou indicação de uso"></textarea>
+        </div>
+        <button id="saveProductBtn" class="btn btn-primary" type="submit">Salvar produto</button>
+        <div id="adminMsg" class="status-msg"></div>
+      </form>
+    </section>
+
+    <div class="controls">
+      <div class="filters" id="categoryFilters">
+        <button class="filter-btn active" data-category="Todos" type="button">Todos</button>
+        <button class="filter-btn" data-category="Masculino" type="button">Masculino</button>
+        <button class="filter-btn" data-category="Feminino" type="button">Feminino</button>
+        <button class="filter-btn" data-category="Infantil" type="button">Infantil</button>
+        <button class="filter-btn" data-category="Fitness" type="button">Fitness</button>
+      </div>
+      <input id="searchInput" class="search-input" type="search" placeholder="Buscar peça..." />
+    </div>
+
+    <div id="productsGrid" class="grid">
+      <div class="empty-state">Carregando catálogo da Polo Vest...</div>
+    </div>
+  </main>
+
+  <div id="loginModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="modal">
+      <h2 id="loginTitle">Login Administrativo</h2>
+      <p>Entre com sua conta administrativa do Firebase.</p>
+
+      <form id="emailLoginForm">
+        <div class="field" style="margin-bottom: 10px;">
+          <label for="loginEmail">E-mail</label>
+          <input id="loginEmail" type="email" placeholder="seu-email@exemplo.com" autocomplete="username" required />
+        </div>
+        <div class="field" style="margin-bottom: 14px;">
+          <label for="loginPassword">Senha</label>
+          <input id="loginPassword" type="password" placeholder="Sua senha" autocomplete="current-password" required />
+        </div>
+        <button class="btn btn-primary" style="width: 100%;" type="submit">Entrar com E-mail e Senha</button>
+      </form>
+
+      <div class="divider">ou</div>
+
+      <button id="googleLoginBtn" class="btn btn-outline" style="width: 100%;" type="button">
+        Entrar com Google
+      </button>
+
+      <button id="closeLoginBtn" class="btn btn-outline" style="width: 100%; margin-top: 10px;" type="button">
+        Fechar
+      </button>
+
+      <div id="loginMsg" class="status-msg"></div>
+    </div>
+  </div>
+
+  <footer>
+    Polo Vest • Moda, Fitness e Família
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      signInWithPopup,
+      GoogleAuthProvider,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      onSnapshot,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      doc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKxlWVPtdtAiYDLF3tpylZX8mk4W1XJRo",
+      authDomain: "polovest-ofc.firebaseapp.com",
+      projectId: "polovest-ofc",
+      storageBucket: "polovest-ofc.firebasestorage.app",
+      messagingSenderId: "1050272997055",
+      appId: "1:1050272997055:web:6abe221b798f57625b300a",
+      measurementId: "G-45R1TD3XL9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+      getAnalytics(app);
+    }
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    let allProducts = [];
+    let selectedCategory = "Todos";
+    let searchTerm = "";
+    let isSignedIn = false;
+
+    const adminPanel = document.getElementById("adminPanel");
+    const authStatusText = document.getElementById("authStatusText");
+    const openLoginBtn = document.getElementById("openLoginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const loginModal = document.getElementById("loginModal");
+    const closeLoginBtn = document.getElementById("closeLoginBtn");
+    const emailLoginForm = document.getElementById("emailLoginForm");
+    const googleLoginBtn = document.getElementById("googleLoginBtn");
+    const loginMsg = document.getElementById("loginMsg");
+
+    const productForm = document.getElementById("productForm");
+    const formTitle = document.getElementById("formTitle");
+    const editingIdInput = document.getElementById("editingId");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const adminMsg = document.getElementById("adminMsg");
+
+    const productsGrid = document.getElementById("productsGrid");
+    const searchInput = document.getElementById("searchInput");
+
+    function showMessage(el, text, type = "error") {
+      el.textContent = text;
+      el.className = `status-msg ${type}`;
+    }
+
+    function clearMessage(el) {
+      el.textContent = "";
+      el.className = "status-msg";
+    }
+
+    function escapeHtml(value = "") {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function formatBRL(value) {
+      const num = Number(value) || 0;
+      return num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      clearMessage(loginMsg);
+      if (user) {
+        isSignedIn = true;
+        authStatusText.textContent = "ADM conectado";
+        openLoginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-flex";
+        adminPanel.classList.add("visible");
+        loginModal.classList.remove("open");
+      } else {
+        isSignedIn = false;
+        authStatusText.textContent = "";
+        adminPanel.classList.remove("visible");
+        logoutBtn.style.display = "none";
+        openLoginBtn.style.display = "inline-flex";
+      }
+      renderProducts();
+    });
+
+    openLoginBtn.addEventListener("click", () => {
+      clearMessage(loginMsg);
+      loginModal.classList.add("open");
+    });
+
+    closeLoginBtn.addEventListener("click", () => {
+      loginModal.classList.remove("open");
+    });
+
+    emailLoginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearMessage(loginMsg);
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        showMessage(loginMsg, "Não foi possível entrar. Verifique e-mail e senha.");
+      }
+    });
+
+    googleLoginBtn.addEventListener("click", async () => {
+      clearMessage(loginMsg);
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (err) {
+        showMessage(loginMsg, "Falha ao autenticar com o Google.");
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    onSnapshot(collection(db, "produtos"), (snapshot) => {
+      allProducts = snapshot.docs.map((docSnap) => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }));
+      renderProducts();
+    }, (err) => {
+      productsGrid.innerHTML = `<div class="empty-state">Erro ao carregar produtos: ${escapeHtml(err.message)}</div>`;
+    });
+
+    document.getElementById("categoryFilters").addEventListener("click", (e) => {
+      const btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedCategory = btn.dataset.category;
+      renderProducts();
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      searchTerm = e.target.value.trim().toLowerCase();
+      renderProducts();
+    });
+
+    function renderProducts() {
+      const filtered = allProducts.filter((item) => {
+        if (item.nome === "teste" && item.preco === undefined && !item.categoria) {
+          return isSignedIn;
+        }
+        const matchesCategory = selectedCategory === "Todos" || item.categoria === selectedCategory;
+        const text = `${item.nome || ""} ${item.descricao || ""} ${item.categoria || ""}`.toLowerCase();
+        const matchesSearch = !searchTerm || text.includes(searchTerm);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (!filtered.length) {
+        productsGrid.innerHTML = `<div class="empty-state">Nenhuma peça encontrada nessa seleção.</div>`;
+        return;
+      }
+
+      productsGrid.innerHTML = filtered.map((item) => {
+        const mediaHtml = item.imagem
+          ? `<img src="${escapeHtml(item.imagem)}" alt="${escapeHtml(item.nome || "Produto")}" />`
+          : `<span>👕</span>`;
+
+        const adminButtons = isSignedIn ? `
+          <div class="card-admin-actions">
+            <button class="btn btn-outline" style="flex: 1;" data-action="edit" data-id="${escapeHtml(item.id)}" type="button">Editar</button>
+            <button class="btn btn-danger" style="flex: 1;" data-action="delete" data-id="${escapeHtml(item.id)}" type="button">Excluir</button>
+          </div>
+        ` : "";
+
+        return `
+          <article class="card">
+            <div class="card-media">${mediaHtml}</div>
+            <div class="card-body">
+              <span class="badge">${escapeHtml(item.categoria || "Polo Vest")}</span>
+              <h3 class="card-title">${escapeHtml(item.nome || "Sem nome")}</h3>
+              <p class="card-desc">${escapeHtml(item.descricao || "")}</p>
+              ${item.tamanho ? `<div style="font-size: 0.8rem; color: var(--muted);">Tamanhos: ${escapeHtml(item.tamanho)}</div>` : ""}
+              <div class="card-footer">
+                <span class="price">${formatBRL(item.preco)}</span>
+              </div>
+              ${adminButtons}
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    productForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearMessage(adminMsg);
+
+      if (!isSignedIn) {
+        showMessage(adminMsg, "Faça login para salvar alterações.");
+        return;
+      }
+
+      const payload = {
+        nome: document.getElementById("prodNome").value.trim(),
+        categoria: document.getElementById("prodCategoria").value,
+        preco: Number(document.getElementById("prodPreco").value),
+        tamanho: document.getElementById("prodTamanho").value.trim(),
+        imagem: document.getElementById("prodImagem").value.trim(),
+        descricao: document.getElementById("prodDescricao").value.trim(),
+        atualizadoEm: serverTimestamp()
+      };
+
+      const editingId = editingIdInput.value;
+
+      try {
+        if (editingId) {
+          await updateDoc(doc(db, "produtos", editingId), payload);
+          showMessage(adminMsg, "Produto atualizado com sucesso!", "success");
+        } else {
+          payload.criadoEm = serverTimestamp();
+          await addDoc(collection(db, "produtos"), payload);
+          showMessage(adminMsg, "Produto adicionado à coleção produtos!", "success");
+        }
+        resetForm();
+      } catch (err) {
+        showMessage(adminMsg, `Erro ao salvar: ${err.message}`);
+      }
+    });
+
+    function resetForm() {
+      editingIdInput.value = "";
+      formTitle.textContent = "Adicionar novo produto";
+      cancelEditBtn.style.display = "none";
+      productForm.reset();
+    }
+
+    cancelEditBtn.addEventListener("click", () => {
+      resetForm();
+      clearMessage(adminMsg);
+    });
+
+    productsGrid.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn || !isSignedIn) return;
+
+      const action = btn.dataset.action;
+      const id = btn.dataset.id;
+      const item = allProducts.find((p) => p.id === id);
+      if (!item) return;
+
+      if (action === "edit") {
+        editingIdInput.value = item.id;
+        document.getElementById("prodNome").value = item.nome || "";
+        document.getElementById("prodCategoria").value = item.categoria || "Masculino";
+        document.getElementById("prodPreco").value = item.preco ?? "";
+        document.getElementById("prodTamanho").value = item.tamanho || "";
+        document.getElementById("prodImagem").value = item.imagem || "";
+        document.getElementById("prodDescricao").value = item.descricao || "";
+        formTitle.textContent = "Editando produto";
+        cancelEditBtn.style.display = "inline-flex";
+        adminPanel.scrollIntoView({ behavior: "smooth" });
+      } else if (action === "delete") {
+        const confirmed = confirm(`Deseja realmente excluir "${item.nome || "este item"}"?`);
+        if (!confirmed) return;
+        try {
+          await deleteDoc(doc(db, "produtos", id));
+          showMessage(adminMsg, "Produto removido da coleção produtos.", "success");
+        } catch (err) {
+          showMessage(adminMsg, `Erro ao excluir: ${err.message}`);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
